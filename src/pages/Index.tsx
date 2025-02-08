@@ -1,5 +1,6 @@
 
 import { ArrowRight, FileText, Search, Globe } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Index = () => {
   return (
@@ -19,12 +20,12 @@ const Index = () => {
               Transformez vos idées en articles engageants, posts de blog et plus encore avec Articlify, votre plateforme de génération de contenu alimentée par l'IA.
             </p>
             <div className="flex flex-wrap justify-center gap-4 mt-10 animate-slide-up">
-              <button className="button-primary">
+              <Link to="/generate" className="button-primary">
                 Commencer <ArrowRight className="w-4 h-4 ml-2" />
-              </button>
-              <button className="button-secondary">
+              </Link>
+              <Link to="/about" className="button-secondary">
                 En Savoir Plus
-              </button>
+              </Link>
             </div>
           </div>
         </div>
