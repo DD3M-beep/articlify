@@ -1,5 +1,5 @@
 
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, FileText, Search, Globe } from "lucide-react";
 
 const Index = () => {
   return (
@@ -9,21 +9,21 @@ const Index = () => {
         <div className="container">
           <div className="flex flex-col items-center max-w-3xl mx-auto text-center">
             <span className="px-3 py-1 mb-4 text-sm font-medium rounded-full bg-accent-light text-accent-dark animate-fade-in">
-              Powered by Advanced AI
+              Propulsé par l'IA Avancée
             </span>
             <h1 className="heading-1 animate-slide-up">
-              Generate High-Quality Content
-              <span className="text-primary"> In Seconds</span>
+              Générez du Contenu de Qualité
+              <span className="text-primary"> en Quelques Secondes</span>
             </h1>
             <p className="mt-6 paragraph animate-slide-up">
-              Transform your ideas into engaging articles, blog posts, and more with our AI-powered content generation platform. Save time and resources while maintaining quality.
+              Transformez vos idées en articles engageants, posts de blog et plus encore avec notre plateforme de génération de contenu alimentée par l'IA.
             </p>
             <div className="flex flex-wrap justify-center gap-4 mt-10 animate-slide-up">
               <button className="button-primary">
-                Get Started <ArrowRight className="w-4 h-4 ml-2" />
+                Commencer <ArrowRight className="w-4 h-4 ml-2" />
               </button>
               <button className="button-secondary">
-                Learn More
+                En Savoir Plus
               </button>
             </div>
           </div>
@@ -34,9 +34,9 @@ const Index = () => {
       <section className="py-20 bg-neutral-50">
         <div className="container">
           <div className="text-center">
-            <h2 className="heading-2">Key Features</h2>
+            <h2 className="heading-2">Fonctionnalités Principales</h2>
             <p className="mt-4 paragraph max-w-2xl mx-auto">
-              Everything you need to generate high-quality content efficiently
+              Tout ce dont vous avez besoin pour générer du contenu de qualité efficacement
             </p>
           </div>
           <div className="grid gap-8 mt-16 sm:grid-cols-2 lg:grid-cols-3">
@@ -58,33 +58,33 @@ const Index = () => {
 
 const features = [
   {
-    title: "AI-Powered Generation",
-    description: "Leverage advanced AI models to generate high-quality content instantly.",
+    title: "Génération Polyvalente",
+    description: "Créez une large gamme de contenus, des articles aux posts sur les réseaux sociaux.",
+    icon: FileText,
+  },
+  {
+    title: "Optimisation SEO",
+    description: "Optimisez automatiquement votre contenu pour les moteurs de recherche.",
+    icon: Search,
+  },
+  {
+    title: "Support Multilingue",
+    description: "Générez du contenu dans plusieurs langues pour toucher une audience mondiale.",
+    icon: Globe,
+  },
+  {
+    title: "Paramètres Personnalisés",
+    description: "Adaptez le ton, le style et la longueur selon vos besoins.",
     icon: ArrowRight,
   },
   {
-    title: "SEO Optimization",
-    description: "Automatically optimize your content for search engines.",
+    title: "Rapide & Efficace",
+    description: "Générez plusieurs contenus simultanément en quelques clics.",
     icon: ArrowRight,
   },
   {
-    title: "Multiple Formats",
-    description: "Generate various types of content from blog posts to product descriptions.",
-    icon: ArrowRight,
-  },
-  {
-    title: "Custom Parameters",
-    description: "Customize tone, style, and length to match your needs.",
-    icon: ArrowRight,
-  },
-  {
-    title: "Fast & Efficient",
-    description: "Generate multiple pieces of content simultaneously.",
-    icon: ArrowRight,
-  },
-  {
-    title: "Easy Integration",
-    description: "Seamlessly integrate with your existing workflow.",
+    title: "Intégration Facile",
+    description: "Intégrez facilement le contenu généré à votre workflow existant.",
     icon: ArrowRight,
   },
 ];
