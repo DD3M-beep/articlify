@@ -17,14 +17,23 @@ export default function Auth() {
   const { toast } = useToast();
 
   useEffect(() => {
-    // Single auth state subscription
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
       if (session) {
         navigate("/", { replace: true });
       }
     });
 
-    return () => subscription.unsubscribe();
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session) {
+        navigate("/", { replace: true });
+      }
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
   }, [navigate]);
 
   const handleAuth = async (e: React.FormEvent) => {
@@ -48,7 +57,6 @@ export default function Auth() {
           password,
         });
         if (error) throw error;
-        // La redirection sera gérée par onAuthStateChange
       }
     } catch (error) {
       toast({
