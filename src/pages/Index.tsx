@@ -13,11 +13,11 @@ const Index = () => {
               Propulsé par l'IA Avancée
             </span>
             <h1 className="heading-1 animate-slide-up">
-              <span className="text-primary">Articlify</span> - Générez du Contenu de Qualité
+              <span className="text-primary">Scrib</span> - Générez du Contenu de Qualité
               <span className="text-primary"> en Quelques Secondes</span>
             </h1>
             <p className="mt-6 paragraph animate-slide-up">
-              Transformez vos idées en articles engageants, posts de blog et plus encore avec Articlify, votre plateforme de génération de contenu alimentée par l'IA.
+              Transformez vos idées en articles engageants, posts de blog et plus encore avec Scrib, votre plateforme de génération de contenu alimentée par l'IA.
             </p>
             <div className="flex flex-wrap justify-center gap-4 mt-10 animate-slide-up">
               <Link to="/generate" className="button-primary">
