@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -16,11 +16,17 @@ export default function Auth() {
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  supabase.auth.onAuthStateChange((event, session) => {
-    if (session) {
-      navigate("/", { replace: true });
-    }
-  });
+  useEffect(() => {
+    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_IN' && session) {
+        navigate("/", { replace: true });
+      }
+    });
+
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
+  }, [navigate]);
 
   const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,13 +38,16 @@ export default function Auth() {
           email,
           password,
           options: {
-            emailRedirectTo: window.location.origin,
+            emailRedirectTo: `${window.location.origin}/auth`,
+            data: {
+              email_confirm: true,
+            }
           }
         });
         if (error) throw error;
         toast({
-          title: "Vérifiez votre email",
-          description: "Un lien de confirmation vous a été envoyé par email.",
+          title: "Vérification requise",
+          description: "Veuillez vérifier votre boîte mail pour confirmer votre compte.",
         });
       } else {
         const { error } = await supabase.auth.signInWithPassword({
@@ -46,7 +55,46 @@ export default function Auth() {
           password,
         });
         if (error) throw error;
+        toast({
+          title: "Connexion réussie",
+          description: "Vous êtes maintenant connecté.",
+        });
       }
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Erreur",
+        description: error instanceof Error ? error.message : "Une erreur est survenue",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleMagicLink = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (!email) {
+      toast({
+        variant: "destructive",
+        title: "Erreur",
+        description: "Veuillez entrer votre adresse email",
+      });
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const { error } = await supabase.auth.signInWithOtp({
+        email,
+        options: {
+          emailRedirectTo: `${window.location.origin}/auth`,
+        },
+      });
+      if (error) throw error;
+      toast({
+        title: "Lien envoyé",
+        description: "Vérifiez votre boîte mail pour vous connecter.",
+      });
     } catch (error) {
       toast({
         variant: "destructive",
@@ -97,6 +145,18 @@ export default function Auth() {
           <Button type="submit" className="w-full" disabled={loading}>
             {loading ? "Chargement..." : isSignUp ? "S'inscrire" : "Se connecter"}
           </Button>
+
+          {!isSignUp && (
+            <Button
+              type="button"
+              variant="outline"
+              className="w-full"
+              onClick={handleMagicLink}
+              disabled={loading}
+            >
+              Connexion avec un lien magique
+            </Button>
+          )}
         </form>
 
         <div className="text-center">
